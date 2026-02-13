@@ -1,0 +1,33 @@
+{
+  "model_id": "convnext_v1.0.1",
+  "version": "1.0.1",
+  "architecture": "convnext_tiny",
+  "created_at": "2026-02-09T13:00:19",
+  "deployed_at": "2026-02-09T13:00:19",
+  "metrics": {
+    "magnitude_accuracy": 97.63,
+    "azimuth_accuracy": 71.28,
+    "magnitude_f1": 96.48,
+    "azimuth_f1": 61.99,
+    "composite_score": 0.9260
+  },
+  "training_config": {
+    "epochs": 50,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "optimizer": "AdamW",
+    "weight_decay": 0.05,
+    "scheduler": "CosineAnnealingLR",
+    "early_stopping_patience": 10
+  },
+  "training_data": {
+    "total_samples": 1972,
+    "train_samples": 1384,
+    "val_samples": 284,
+    "test_samples": 304,
+    "events_included": []
+  },
+  "status": "active",
+  "previous_version": "1.0.0",
+  "notes": "Champion model after first pipeline update"
+}

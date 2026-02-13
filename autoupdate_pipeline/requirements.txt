@@ -1,0 +1,27 @@
+# Auto-Update Pipeline Requirements
+# Install: pip install -r requirements.txt
+
+# Core ML
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# Image Processing
+Pillow>=10.0.0
+
+# Configuration
+PyYAML>=6.0
+
+# Utilities
+packaging>=23.0
+
+# Testing (optional)
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Logging
+colorlog>=6.0.0

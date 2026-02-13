@@ -1,0 +1,42 @@
+{
+  "events": [
+    {
+      "timestamp": "2026-02-10T13:10:00.000000",
+      "event_type": "history_reset",
+      "details": {
+        "reason": "File corruption fixed"
+      }
+    },
+    {
+      "timestamp": "2026-02-10T13:06:29.503311",
+      "event_type": "event_added",
+      "details": {
+        "event_id": "KPY_20260214",
+        "date": "2026-02-14",
+        "station": "KPY",
+        "magnitude": 5.2,
+        "azimuth": 90.0
+      }
+    },
+    {
+      "timestamp": "2026-02-10T13:06:29.505233",
+      "event_type": "event_added",
+      "details": {
+        "date": "2026-02-14",
+        "station": "KPY",
+        "magnitude": 5.2,
+        "magnitude_class": "Medium",
+        "azimuth": 90.0,
+        "azimuth_class": "E"
+      }
+    },
+    {
+      "timestamp": "2026-02-10T14:36:17.386141",
+      "event_type": "pipeline_started",
+      "details": {
+        "force": true,
+        "auto_deploy": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+# ============================================================================
+# AUTO-UPDATE PIPELINE CONFIGURATION
+# ============================================================================
+# Version: 1.0.0
+# Last Updated: February 2026
+
+# Pipeline Settings
+pipeline:
+  name: "earthquake_model_autoupdate"
+  version: "1.0.0"
+  description: "Automatic model update pipeline for earthquake prediction"
+
+# Trigger Settings
+triggers:
+  # Minimum new validated events before triggering retraining
+  min_new_events: 5  # Changed from 20 for easier testing
+  
+  # Maximum days between retraining (even if min_events not reached)
+  max_days_between_training: 90
+  
+  # Performance degradation threshold (trigger if accuracy drops by this %)
+  performance_degradation_threshold: 2.0
+  
+  # Enable/disable automatic triggering
+  auto_trigger_enabled: true
+
+# Data Validation Settings
+data_validation:
+  # Required fields for new event
+  required_fields:
+    - date
+    - station
+    - magnitude
+    - azimuth
+    - spectrogram_path
+  
+  # Valid magnitude classes
+  magnitude_classes:
+    - "Large"      # M >= 6.0
+    - "Medium"     # 5.0 <= M < 6.0
+    - "Moderate"   # 4.0 <= M < 5.0
+    - "Normal"     # No earthquake
+  
+  # Valid azimuth classes
+  azimuth_classes:
+    - "N"
+    - "NE"
+    - "E"
+    - "SE"
+    - "S"
+    - "SW"
+    - "W"
+    - "NW"
+    - "Normal"
+  
+  # Valid stations (from lokasi_stasiun.csv)
+  valid_stations:
+    - "SBG"   # Sabang
+    - "SCN"   # Sicincin
+    - "KPY"   # Kepahiang
+    - "LWA"   # Liwa
+    - "LPS"   # Lampung Selatan
+    - "SRG"   # Serang
+    - "SKB"   # Sukabumi
+    - "CLP"   # Cilacap
+    - "YOG"   # Yogyakarta
+    - "TRT"   # Tretes
+    - "LUT"   # Lombok Utara
+    - "ALR"   # Alor
+    - "SMI"   # Saumlaki
+    - "SRO"   # Sorong
+    - "TNT"   # Ternate
+    - "TND"   # Tondano
+    - "GTO"   # Gorontalo
+    - "LWK"   # Luwuk
+    - "PLU"   # Palu
+    - "TRD"   # Tarakan
+    - "JYP"   # Jayapura
+    - "AMB"   # Ambon
+    - "GSI"   # Gunungsitoli
+    - "MLB"   # Meulaboh
+
+# Training Settings
+training:
+  # Model architecture to use
+  architecture: "convnext"  # convnext, efficientnet, vgg16
+  
+  # Training hyperparameters
+  batch_size: 32
+  learning_rate: 0.0001
+  weight_decay: 0.05
+  epochs: 50
+  early_stopping_patience: 10
+  
+  # Data augmentation
+  use_augmentation: true
+  mixup_alpha: 0.8
+  cutmix_alpha: 1.0
+  
+  # Validation method
+  validation_method: "loeo"  # loeo, loso, holdout
+  
+  # Device
+  device: "auto"  # auto, cuda, cpu
+
+# Evaluation Settings
+evaluation:
+  # Metrics to compute
+  metrics:
+    - "accuracy"
+    - "f1_score"
+    - "precision"
+    - "recall"
+    - "mcc"  # Matthews Correlation Coefficient
+    - "auc_roc"
+  
+  # Benchmark test set (fixed, never changes)
+  benchmark_test_set: "data/benchmark/benchmark_test.csv"
+  
+  # Number of bootstrap samples for confidence intervals
+  bootstrap_samples: 1000
+  confidence_level: 0.95
+  
+  # ============================================================================
+  # ENHANCED EVALUATION METRICS (Research-Based)
+  # Reference: arXiv:2506.17442, arXiv:2512.18390
+  # ============================================================================
+  
+  # Metric weights for composite score (must sum to 1.0)
+  # Based on earthquake precursor detection priorities
+  weights:
+    magnitude_accuracy: 0.35    # Primary task: detect earthquake magnitude
+    azimuth_accuracy: 0.15      # Secondary: predict direction
+    macro_f1: 0.20              # Handle class imbalance
+    mcc: 0.15                   # Matthews Correlation Coefficient
+    loeo_stability: 0.10        # Cross-validation stability
+    false_positive_rate: 0.05   # Avoid false alarms
+  
+  # Decision thresholds
+  decision:
+    min_improvement: 0.005      # 0.5% minimum composite score improvement
+    significance_level: 0.05    # p-value threshold for statistical test
+    strict_mode: false          # Require ALL metrics to improve
+  
+  # Regression tolerances (No-Harm Principle)
+  # Reference: Subasri et al. (2025), JAMA Network Open
+  regression_tolerance:
+    magnitude_accuracy: -1.0    # Max 1% drop allowed
+    large_recall: -2.0          # Max 2% drop (safety critical)
+    false_positive_rate: 1.0    # Max 1% increase allowed
+  
+  # Statistical testing configuration
+  statistical_test:
+    method: "mcnemar"           # Options: mcnemar, bootstrap, paired_ttest
+    bootstrap_iterations: 1000
+    confidence_level: 0.95
+
+# Champion-Challenger Comparison (Legacy - kept for backward compatibility)
+comparison:
+  # Weights for composite score
+  weights:
+    magnitude_accuracy: 0.40
+    azimuth_accuracy: 0.20
+    loeo_validation: 0.30
+    false_positive_rate: 0.10
+  
+  # Minimum improvement required (in composite score)
+  min_improvement: 0.0
+  
+  # Statistical significance level
+  significance_level: 0.05
+  
+  # Require improvement in ALL metrics (strict mode)
+  strict_mode: false
+
+# Deployment Settings
+deployment:
+  # Auto-deploy if challenger wins
+  auto_deploy: false
+  
+  # Require manual approval
+  require_approval: true
+  
+  # Backup champion before replacing
+  backup_champion: true
+  
+  # Maximum models to keep in archive
+  max_archive_models: 10
+
+# Notification Settings
+notifications:
+  # Enable email notifications
+  email_enabled: false
+  email_recipients: []
+  
+  # Enable Slack notifications
+  slack_enabled: false
+  slack_webhook: ""
+  
+  # Events to notify
+  notify_on:
+    - "pipeline_started"
+    - "training_complete"
+    - "challenger_wins"
+    - "deployment_complete"
+    - "error"
+
+# Logging Settings
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "logs/pipeline.log"
+  max_log_size_mb: 100
+  backup_count: 5
+
+# Paths
+paths:
+  # Data directories
+  pending_data: "data/pending"
+  validated_data: "data/validated"
+  benchmark_data: "data/benchmark"
+  
+  # Model directories
+  champion_model: "models/champion"
+  challenger_model: "models/challenger"
+  archive_models: "models/archive"
+  
+  # Production model (external reference)
+  production_model: "../experiments_convnext/convnext_tiny_20260205_100924/best_model.pth"
+  production_config: "../experiments_convnext/convnext_tiny_20260205_100924/config.json"
+  
+  # Dataset (external reference)
+  dataset_dir: "../dataset_unified/spectrograms"
+  metadata_file: "../dataset_unified/metadata/unified_metadata.csv"

@@ -1,0 +1,129 @@
+{
+  "registry_version": "2.0.0",
+  "last_updated": "2026-02-10T15:00:00",
+  "champion": {
+    "model_id": "convnext_v1.0.1",
+    "version": "1.0.1",
+    "architecture": "convnext_tiny",
+    "path": "models/champion/best_model.pth",
+    "config_path": "models/champion/class_mappings.json",
+    "metadata_path": "models/champion/metadata.json",
+    "deployed_at": "2026-02-09T13:00:19.864298",
+    "metrics": {
+      "magnitude_accuracy": 97.63,
+      "azimuth_accuracy": 71.28,
+      "magnitude_f1": 96.48,
+      "azimuth_f1": 61.99,
+      "composite_score": 0.9260
+    },
+    "training_data": {
+      "total_samples": 1972,
+      "events_included": []
+    },
+    "previous_version": "1.0.0",
+    "status": "active"
+  },
+  "challenger": null,
+  "archive": [
+    {
+      "model_id": "convnext_v1.0.0",
+      "version": "1.0.0",
+      "archived_at": "2026-02-09T13:00:19.663040",
+      "path": "models/archive/convnext_v1.0.0",
+      "metadata_path": "models/archive/convnext_v1.0.0/metadata.json",
+      "metrics": {
+        "magnitude_accuracy": 98.36,
+        "azimuth_accuracy": 50.66,
+        "composite_score": 0.8234
+      },
+      "reason": "Replaced by v1.0.1 (better azimuth accuracy)"
+    }
+  ],
+  "all_versions": [
+    {"version": "1.0.0", "status": "archived", "path": "models/archive/convnext_v1.0.0"},
+    {"version": "1.0.1", "status": "champion", "path": "models/champion"}
+  ],
+  "pending_events": {
+    "count": 0,
+    "events": [],
+    "last_added": "2026-02-10T13:06:29.502339"
+  },
+  "pipeline_history": {
+    "total_runs": 1,
+    "successful_updates": 1,
+    "failed_updates": 0,
+    "last_run": "2026-02-09T13:00:19.864319"
+  },
+  "validated_events": [
+    {
+      "event_id": "GTO_20260210",
+      "date": "2026-02-10",
+      "station": "GTO",
+      "spectrogram_path": null,
+      "added_at": "2026-02-10T12:51:25.760717",
+      "magnitude_value": 6.2,
+      "azimuth_value": 45.0,
+      "magnitude_class": "Large",
+      "azimuth_class": "NE",
+      "magnitude": "Large",
+      "azimuth": "NE",
+      "validated_at": "2026-02-10T13:08:33.425952"
+    },
+    {
+      "event_id": "SCN_20260211",
+      "date": "2026-02-11",
+      "station": "SCN",
+      "spectrogram_path": null,
+      "added_at": "2026-02-10T12:59:20.169660",
+      "magnitude_value": 5.5,
+      "azimuth_value": 180.0,
+      "magnitude_class": "Medium",
+      "azimuth_class": "S",
+      "magnitude": "Medium",
+      "azimuth": "S",
+      "validated_at": "2026-02-10T13:08:33.425959"
+    },
+    {
+      "event_id": "TRT_20260213",
+      "date": "2026-02-13",
+      "station": "TRT",
+      "spectrogram_path": null,
+      "added_at": "2026-02-10T13:00:10.842209",
+      "magnitude_value": 0.0,
+      "azimuth_value": 0.0,
+      "magnitude_class": "Normal",
+      "azimuth_class": "N",
+      "magnitude": "Normal",
+      "azimuth": "N",
+      "validated_at": "2026-02-10T13:08:33.425961"
+    },
+    {
+      "event_id": "MLB_20260212",
+      "date": "2026-02-12",
+      "station": "MLB",
+      "spectrogram_path": null,
+      "added_at": "2026-02-10T13:05:26.428631",
+      "magnitude_value": 4.8,
+      "azimuth_value": 270.0,
+      "magnitude_class": "Moderate",
+      "azimuth_class": "W",
+      "magnitude": "Moderate",
+      "azimuth": "W",
+      "validated_at": "2026-02-10T13:08:33.425962"
+    },
+    {
+      "event_id": "KPY_20260214",
+      "date": "2026-02-14",
+      "station": "KPY",
+      "spectrogram_path": null,
+      "added_at": "2026-02-10T13:06:29.502344",
+      "magnitude_value": 5.2,
+      "azimuth_value": 90.0,
+      "magnitude_class": "Medium",
+      "azimuth_class": "E",
+      "magnitude": "Medium",
+      "azimuth": "E",
+      "validated_at": "2026-02-10T13:08:33.425963"
+    }
+  ]
+}

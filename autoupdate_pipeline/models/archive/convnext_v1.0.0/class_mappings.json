@@ -1,0 +1,19 @@
+{
+  "magnitude": {
+    "0": "Large",
+    "1": "Medium",
+    "2": "Moderate",
+    "3": "Normal"
+  },
+  "azimuth": {
+    "0": "E",
+    "1": "N",
+    "2": "NE",
+    "3": "NW",
+    "4": "Normal",
+    "5": "S",
+    "6": "SE",
+    "7": "SW",
+    "8": "W"
+  }
+}

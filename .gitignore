@@ -1,0 +1,48 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.ipynb_checkpoints/
+
+# --- Large Datasets (Excluding images) ---
+dataset_experiment_3/spectrograms/
+dataset_experiment_3/spectrograms_smote/
+dataset_consolidation/spectrograms/
+dataset_smote_train/spectrograms/
+dataset_normal_new/
+dataset_moderate/
+dataset_medium_new/
+mdata2/
+missing/
+
+# --- Models & Binary Files ---
+*.pth
+*.pkl
+*.gz
+*.zip
+*.7z
+*.rar
+
+# --- Keep Key Metadata & Reports ---
+!dataset_experiment_3/final_metadata/*.csv
+!dataset_consolidation/metadata/*.csv
+!experiments_v2/**/*.json
+!autoupdate_pipeline/config/*.json
+
+# --- Publication Figures ---
+# We keep final figures for display in README/Dashboard
+!publication_efficientnet/figures/*.png
+!experiments_v2/hierarchical/*.png
+
+# --- System & OS ---
+.vscode/
+.idea/
+.DS_Store
+desktop.ini
+Thumbs.db
+
+# --- Log files ---
+*.log
+autoupdate_pipeline/src/logs/
