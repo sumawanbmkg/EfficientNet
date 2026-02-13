@@ -103,15 +103,16 @@ class ConvNeXtEarthquake(nn.Module):
         # Load ConvNeXt Backbone
         weights = models.ConvNeXt_Tiny_Weights.IMAGENET1K_V1
         self.backbone = models.convnext_tiny(weights=weights)
-        num_features = self.backbone.classifier[2].in_features
-        self.backbone.classifier = nn.Identity() # Remove default head
+        num_features = 768 # Standard for Tiny
+        self.backbone.classifier = nn.Identity() 
         
-        # Joint Head Structure (Modernized)
+        # Dual-Step Dropout (Historis: Sangat stabil untuk data geomagnetik)
         self.mag_head = nn.Sequential(
             nn.LayerNorm(num_features),
             nn.Dropout(0.5),
             nn.Linear(num_features, 512),
             nn.GELU(),
+            nn.Dropout(0.25),
             nn.Linear(512, num_mag_classes)
         )
         
@@ -120,6 +121,7 @@ class ConvNeXtEarthquake(nn.Module):
             nn.Dropout(0.5),
             nn.Linear(num_features, 512),
             nn.GELU(),
+            nn.Dropout(0.25),
             nn.Linear(512, num_azi_classes)
         )
 
@@ -149,10 +151,12 @@ def main():
     train_df = pd.read_csv(CONFIG["train_meta"])
     val_df = pd.read_csv(CONFIG["val_meta"])
     
+    # Augmentasi Lebih Agresif (Historis: Membantu generalisasi pada data modern)
     train_transform = transforms.Compose([
         transforms.Resize((224, 224)),
-        transforms.RandomHorizontalFlip(),
+        transforms.RandomHorizontalFlip(p=0.5),
         transforms.RandomRotation(15),
+        transforms.RandomAffine(degrees=0, translate=(0.1, 0.1)),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
@@ -172,7 +176,6 @@ def main():
     # Weights Calculation (Handling Imbalance)
     counts = train_df['magnitude_class'].value_counts()
     weights = [train_df.shape[0] / (counts.get(c, 1)) for c in MAG_CLASSES]
-    # Penalize 'Normal' slightly less to maintain stability
     class_weights = torch.tensor(weights).float().to(device)
     class_weights = class_weights / class_weights.mean()
 
@@ -181,8 +184,11 @@ def main():
     criterion_mag = nn.CrossEntropyLoss(weight=class_weights)
     criterion_azi = nn.CrossEntropyLoss()
     
+    # Optimizer: AdamW dengan Weight Decay Tinggi (Best for ConvNeXt)
     optimizer = optim.AdamW(model.parameters(), lr=CONFIG["lr"], weight_decay=CONFIG["weight_decay"])
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=3)
+    
+    # Scheduler: Cosine Annealing (Historis: Lebih smooth dibanding StepLR)
+    scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2)
 
     best_f1 = 0
     patience_counter = 0
