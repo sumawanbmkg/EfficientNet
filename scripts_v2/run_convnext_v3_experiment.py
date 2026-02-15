@@ -139,7 +139,11 @@ class ConvNeXtEarthquake(nn.Module):
 def main():
     os.makedirs(CONFIG["output_dir"], exist_ok=True)
     logging.basicConfig(level=logging.INFO, filename=os.path.join(CONFIG["output_dir"], "training.log"), filemode="w")
+    for handler in logging.root.handlers:
+        handler.flush = lambda: sys.stdout.flush() # Mock flush if needed
+    
     console = logging.StreamHandler()
+    console.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
     console.setLevel(logging.INFO)
     logging.getLogger("").addHandler(console)
     logger = logging.getLogger(__name__)
@@ -234,8 +238,36 @@ def main():
                 logger.info("Early stopping triggered.")
                 break
 
+    # --- FINAL EVALUATION ON TEST SET ---
+    logger.info("Starting Final Evaluation on Test Set...")
+    model.load_state_dict(torch.load(os.path.join(CONFIG["output_dir"], "best_convnext_v3.pth")))
+    model.eval()
+
+    test_df = pd.read_csv(CONFIG["test_meta"])
+    test_ds = EarthquakeDataset(test_df, CONFIG["dataset_root"], val_transform)
+    test_loader = DataLoader(test_ds, batch_size=CONFIG["batch_size"], shuffle=False, num_workers=2)
+
+    all_preds = []
+    all_targets = []
+    
+    with torch.no_grad():
+        for imgs, mag_lbl, azi_lbl in test_loader:
+            imgs, mag_lbl = imgs.to(device), mag_lbl.to(device)
+            mag_out, _ = model(imgs)
+            all_preds.extend(mag_out.argmax(1).cpu().numpy())
+            all_targets.extend(mag_lbl.cpu().numpy())
+
+    report = classification_report(all_targets, all_preds, target_names=MAG_CLASSES, output_dict=True)
+    report_text = classification_report(all_targets, all_preds, target_names=MAG_CLASSES)
+    
+    logger.info("\nFinal Test Set Results:\n" + report_text)
+    
+    with open(os.path.join(CONFIG["output_dir"], "validation_report_test.json"), 'w') as f:
+        json.dump(report, f, indent=4)
+        
+    logger.info(f"Report saved to {os.path.join(CONFIG['output_dir'], 'validation_report_test.json')}")
     logger.info("="*50)
-    logger.info(f"TRAINING COMPLETE. Best Val F1: {best_f1:.4f}")
+    logger.info("AUTOPILOT SUCCESSFUL. SYSTEM STANDBY.")
     logger.info("="*50)
 
 if __name__ == "__main__":
