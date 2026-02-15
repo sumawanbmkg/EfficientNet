@@ -263,7 +263,6 @@ git push origin feature/your-feature
 
 ### Technical Support
 - **Dashboard**: http://localhost:8501
-- **SSH Server**: 202.90.198.224:4343
 - **Documentation**: See `PHASE2_QUICK_REFERENCE.md`
 
 ### Team
