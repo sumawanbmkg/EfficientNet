@@ -20,10 +20,10 @@ logger = logging.getLogger(__name__)
 
 # SSH Configuration
 SSH_CONFIG = {
-    'host': '202.90.198.224',
+    'host': '202.90.xxx.xxx',
     'port': 4343,
-    'username': 'precursor',
-    'password': 'otomatismon'
+    'username': 'xxxx',
+    'password': 'xyxyxyx'
 }
 
 class GeomagneticDataFetcherDual:
