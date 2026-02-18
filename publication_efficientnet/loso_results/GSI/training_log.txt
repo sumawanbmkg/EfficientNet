@@ -1,0 +1,4 @@
+2026-02-18 08:54:37,512 - INFO - Trainer V3 initialized. Device: cpu
+2026-02-18 08:54:37,512 - INFO - Logging training progress to d:\multi\publication_efficientnet\loso_results\GSI\training_log.txt
+2026-02-18 08:54:37,513 - INFO - Loading data from d:\multi\auto_effi\data\unified_metadata.csv...
+2026-02-18 08:54:37,513 - INFO - Using provided data splits. Train: 2047, Val: 33

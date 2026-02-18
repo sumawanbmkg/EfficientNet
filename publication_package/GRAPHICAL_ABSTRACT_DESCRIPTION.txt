@@ -1,0 +1,42 @@
+GRAPHICAL ABSTRACT DESCRIPTION
+==============================
+
+Layout: Horizontal flow diagram (recommended size: 1200 x 600 pixels)
+
+LEFT SECTION: Input Data
+------------------------
+- Icon: Magnetometer/seismograph
+- Text: "Geomagnetic Data"
+- Arrow pointing right
+- Spectrogram image example
+
+CENTER SECTION: Deep Learning Models
+------------------------------------
+- Two parallel boxes:
+  * VGG16 (blue): "98.68% Magnitude Acc, 528 MB"
+  * EfficientNet-B0 (green): "94.37% Magnitude Acc, 20 MB"
+- Grad-CAM heatmap overlay showing ULF attention
+
+RIGHT SECTION: Output/Application
+---------------------------------
+- Prediction results:
+  * Magnitude: Small/Medium/Large/Major
+  * Azimuth: 8 directions + Normal
+- Icon: Early warning system / alert
+- Text: "Earthquake Early Warning"
+
+BOTTOM: Key Message
+-------------------
+"Deep Learning for Earthquake Precursor Detection: 
+VGG16 for Maximum Accuracy | EfficientNet-B0 for Efficient Deployment"
+
+COLOR SCHEME:
+- Blue (#3498db): VGG16
+- Green (#2ecc71): EfficientNet
+- Red (#e74c3c): Earthquake/Alert
+- Orange (#f39c12): Precursor signal
+
+SUGGESTED TOOLS:
+- PowerPoint/Keynote for layout
+- Canva for professional design
+- Adobe Illustrator for publication quality

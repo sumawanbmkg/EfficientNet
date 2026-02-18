@@ -1,0 +1,12 @@
+2026-02-18 08:54:34,591 - INFO - Trainer V3 initialized. Device: cpu
+2026-02-18 08:54:34,591 - INFO - Logging training progress to d:\multi\publication_efficientnet\loso_results\YOG\training_log.txt
+2026-02-18 08:54:34,592 - INFO - Loading data from d:\multi\auto_effi\data\unified_metadata.csv...
+2026-02-18 08:54:34,592 - INFO - Using provided data splits. Train: 1934, Val: 146
+2026-02-18 09:57:07,332 - INFO - Trainer V3 initialized. Device: cpu
+2026-02-18 09:57:07,333 - INFO - Logging training progress to d:\multi\publication_efficientnet\loso_results\YOG\training_log.txt
+2026-02-18 09:57:07,334 - INFO - Loading data from d:\multi\auto_effi\data\unified_metadata.csv...
+2026-02-18 09:57:07,334 - INFO - Using provided data splits. Train: 1934, Val: 146
+2026-02-18 09:57:07,589 - INFO - NORMAL FINE-TUNING MODE (Samples: 2080 >= 50)
+2026-02-18 09:57:07,589 - INFO - >>> PHASE 1: Training Heads Only (Frozen Backbone)
+2026-02-18 09:58:31,290 - INFO - Epoch 1/12 [FROZEN] | Loss: 3.1590 | Mag Acc: 0.6986 | Azi Acc: 0.4452 | Large Recall: 1.0000
+2026-02-18 09:58:31,361 - INFO -   --> [SAVED] Challenger Improved. Score: 0.5973

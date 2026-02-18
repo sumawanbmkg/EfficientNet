@@ -1,0 +1,27 @@
+2026-02-18 08:54:34,429 - INFO - Trainer V3 initialized. Device: cpu
+2026-02-18 08:54:34,429 - INFO - Logging training progress to d:\multi\publication_efficientnet\loso_results\MLB\training_log.txt
+2026-02-18 08:54:34,429 - INFO - Loading data from d:\multi\auto_effi\data\unified_metadata.csv...
+2026-02-18 08:54:34,430 - INFO - Using provided data splits. Train: 1915, Val: 165
+2026-02-18 09:26:20,361 - INFO - Trainer V3 initialized. Device: cpu
+2026-02-18 09:26:20,362 - INFO - Logging training progress to d:\multi\publication_efficientnet\loso_results\MLB\training_log.txt
+2026-02-18 09:26:20,363 - INFO - Loading data from d:\multi\auto_effi\data\unified_metadata.csv...
+2026-02-18 09:26:20,363 - INFO - Using provided data splits. Train: 1915, Val: 165
+2026-02-18 09:26:20,559 - INFO - NORMAL FINE-TUNING MODE (Samples: 2080 >= 50)
+2026-02-18 09:26:20,559 - INFO - >>> PHASE 1: Training Heads Only (Frozen Backbone)
+2026-02-18 09:27:48,203 - INFO - Epoch 1/12 [FROZEN] | Loss: 3.1599 | Mag Acc: 0.5758 | Azi Acc: 0.4121 | Large Recall: 1.0000
+2026-02-18 09:27:48,247 - INFO -   --> [SAVED] Challenger Improved. Score: 0.5103
+2026-02-18 09:29:13,106 - INFO - Epoch 2/12 [FROZEN] | Loss: 2.6430 | Mag Acc: 0.6000 | Azi Acc: 0.3879 | Large Recall: 1.0000
+2026-02-18 09:29:13,161 - INFO -   --> [SAVED] Challenger Improved. Score: 0.5152
+2026-02-18 09:30:29,764 - INFO - Epoch 3/12 [FROZEN] | Loss: 2.4986 | Mag Acc: 0.6000 | Azi Acc: 0.3758 | Large Recall: 1.0000
+2026-02-18 09:31:54,287 - INFO - Epoch 4/12 [FROZEN] | Loss: 2.3652 | Mag Acc: 0.6061 | Azi Acc: 0.3697 | Large Recall: 1.0000
+2026-02-18 09:33:13,940 - INFO - Epoch 5/12 [FROZEN] | Loss: 2.3212 | Mag Acc: 0.6121 | Azi Acc: 0.4545 | Large Recall: 1.0000
+2026-02-18 09:33:13,991 - INFO -   --> [SAVED] Challenger Improved. Score: 0.5491
+2026-02-18 09:33:13,991 - INFO - >>> PHASE 2: Unfreezing Backbone (Fine-Tuning)
+2026-02-18 09:36:25,840 - INFO - Epoch 6/12 [FINE-TUNE] | Loss: 2.2509 | Mag Acc: 0.6182 | Azi Acc: 0.4000 | Large Recall: 1.0000
+2026-02-18 09:39:38,801 - INFO - Epoch 7/12 [FINE-TUNE] | Loss: 2.1717 | Mag Acc: 0.6242 | Azi Acc: 0.4000 | Large Recall: 1.0000
+2026-02-18 09:42:48,057 - INFO - Epoch 8/12 [FINE-TUNE] | Loss: 2.1070 | Mag Acc: 0.6242 | Azi Acc: 0.3879 | Large Recall: 1.0000
+2026-02-18 09:46:02,267 - INFO - Epoch 9/12 [FINE-TUNE] | Loss: 2.0280 | Mag Acc: 0.6061 | Azi Acc: 0.4182 | Large Recall: 1.0000
+2026-02-18 09:49:48,757 - INFO - Epoch 10/12 [FINE-TUNE] | Loss: 1.9974 | Mag Acc: 0.6061 | Azi Acc: 0.4000 | Large Recall: 1.0000
+2026-02-18 09:53:18,127 - INFO - Epoch 11/12 [FINE-TUNE] | Loss: 1.9185 | Mag Acc: 0.6061 | Azi Acc: 0.3818 | Large Recall: 1.0000
+2026-02-18 09:57:07,265 - INFO - Epoch 12/12 [FINE-TUNE] | Loss: 1.9340 | Mag Acc: 0.6121 | Azi Acc: 0.4061 | Large Recall: 1.0000
+2026-02-18 09:57:07,267 - INFO - Training Complete. Best Composite Score: 0.5491

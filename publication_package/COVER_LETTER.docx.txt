@@ -1,0 +1,61 @@
+COVER LETTER TEMPLATE
+=====================
+
+[Date]
+
+Editor-in-Chief
+[Journal Name]
+
+Dear Editor,
+
+We are pleased to submit our manuscript entitled "Earthquake Precursor Detection using Deep Learning: A Comparative Study of VGG16 and EfficientNet-B0 for Geomagnetic Anomaly Classification" for consideration for publication in [Journal Name].
+
+SIGNIFICANCE OF THE WORK
+------------------------
+Earthquake prediction remains one of the most challenging problems in geophysics. Our study addresses this challenge by developing and comparing deep learning models for detecting earthquake precursors from geomagnetic data. The key contributions include:
+
+1. A comprehensive comparative analysis of VGG16 and EfficientNet-B0 architectures for multi-task earthquake precursor classification
+2. Development of a novel dataset comprising 1,972 spectrograms from 256 earthquake events in Indonesia
+3. Achievement of 98.68% magnitude classification accuracy (VGG16) with physically interpretable features
+4. Rigorous cross-validation: LOEO (97.53%) and LOSO (97.57%) demonstrating excellent generalization
+5. Demonstration that EfficientNet-B0 offers 26× smaller model size suitable for operational deployment
+6. Grad-CAM analysis confirming models focus on scientifically meaningful ULF frequency patterns
+7. Comprehensive failure analysis with honest disclosure of limitations
+
+NOVELTY AND RELEVANCE
+--------------------
+This work is novel in several aspects:
+- First comprehensive comparison of modern CNN architectures for geomagnetic precursor detection
+- Multi-task learning framework for simultaneous magnitude and azimuth prediction
+- Rigorous validation preventing data leakage through event-level splitting (LOEO) and station-level splitting (LOSO)
+- Explainability analysis linking model attention to established geophysical theory
+- Transparent reporting of limitations including rare class statistical power and normal class selection criteria
+
+The manuscript is relevant to [Journal Name]'s scope in [specific area, e.g., "machine learning applications in geosciences" or "earthquake hazard assessment"].
+
+SCIENTIFIC RIGOR
+----------------
+We have taken particular care to address potential reviewer concerns:
+- Data leakage prevention verified through LOEO/LOSO validation (only ~1.4% performance drop)
+- Honest acknowledgment of statistical limitations for rare magnitude classes (n<30)
+- Failure case analysis with Grad-CAM visualizations demonstrating interpretable model behavior
+- Clear disclosure that Normal class selection criteria may influence reported accuracy
+
+ETHICAL COMPLIANCE
+-----------------
+- This manuscript has not been published elsewhere and is not under consideration by another journal
+- All authors have approved the manuscript and agree with its submission
+- The research complies with ethical standards
+- Data and code are publicly available for reproducibility at: https://github.com/sumawanbmkg/earthquake-precursor-cnn
+
+We believe this work will be of significant interest to your readership and contributes meaningfully to the advancement of AI-based earthquake early warning systems.
+
+Thank you for considering our manuscript.
+
+Sincerely,
+
+[Corresponding Author Name]
+[Title/Position]
+[Institution]
+[Email]
+[Phone]

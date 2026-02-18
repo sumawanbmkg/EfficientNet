@@ -12,14 +12,14 @@
 
 \title{\textbf{Hierarchical EfficientNet for Reliable Earthquake Precursor Detection: Bridging Solar Cycle Heterogeneity in Geomagnetic ULF Signals}}
 \author{Antigravity Research Team \and BMKG Geophysics Department, Indonesia}
-\date{February 13, 2026}
+\date{February 18, 2026}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-Short-term earthquake forecasting remains a significant challenge due to the low signal-to-noise ratio in geomagnetic precursors and temporal bias introduced by solar activity cycles. Previous attempts using standard deep learning architectures have often struggled with high false-positive rates during peak solar flux periods. This study introduces a novel \textbf{Hierarchical EfficientNet (Phase 2.1 \& Experiment 3)} architecture designed specifically to detect Ultra-Low Frequency (ULF) geomagnetic anomalies while minimizing solar cycle interference. We utilized a modernized homogenized dataset of 2,265 samples (2018-2025), incorporating 1,000 samples of "Modern Normal" data from the 2024-2025 peak solar cycle to stress-test the model. The proposed hierarchical framework employs multi-task heads for simultaneous detection, magnitude estimation, and azimuth localization. Our results demonstrate that the model achieves 100.0\% Recall and 100.0\% Precision for Large Magnitude ($M \geq 6.0$) events, effectively serving as a "Disaster Lock" system. This study provides a robust foundation for next-generation automated seismic alert systems in heterogeneous electromagnetic environments.
+Short-term earthquake forecasting remains a significant challenge due to the low signal-to-noise ratio in geomagnetic precursors and temporal bias introduced by solar activity cycles. Previous attempts using standard deep learning architectures have often struggled with high false-positive rates during peak solar flux periods. This study introduces a novel \textbf{Hierarchical EfficientNet (Phase 2.1)} architecture designed specifically to detect Ultra-Low Frequency (ULF) geomagnetic anomalies while minimizing solar cycle interference. We utilized a modernized homogenized dataset of 2,265 samples (2018-2025), incorporating 1,000 samples of "Modern Normal" data from the 2024-2025 peak solar cycle to stress-test the model. The proposed hierarchical framework employs multi-task heads for simultaneous detection, magnitude estimation, and azimuth localization. Our results demonstrate that the model achieves 100.0\% Recall and 100.0\% Precision for Large Magnitude ($M \geq 6.0$) events, effectively serving as a "Disaster Lock" system. This study provides a robust foundation for resource-constrained, edge-based automated seismic alert systems in heterogeneous electromagnetic environments.
 \end{abstract}
 
 \section{Introduction}
@@ -27,11 +27,14 @@ Earthquake prediction remains one of the most elusive goals in geophysics. Among
 
 However, the operational reliability of geomagnetic precursor detection has historically been hindered by two factors: (1) the extreme rarity of major earthquake events (Large class), leading to severe dataset imbalance, and (2) the overlap between pre-seismic anomalies and solar-induced magnetic noise. Recent innovations in deep learning, specifically the use of EfficientNet \cite{tan2019efficientnet} and ConvNeXt \cite{liu2022convnext}, have significantly improved computer vision tasks, but their application to geophysical spectral images requires careful adaptation to handle "Domain Shift" caused by the solar cycle.
 
+While Vision Transformers (ViT) have shown exceptional performance in large-scale computer vision tasks, our choice of EfficientNet-B0 is deliberate and grounded in the operational context of the Indonesian Tsunami Early Warning System (InaTEWS). Unlike massive datasets required for ViTs to learn localized features without inductive bias, our study operates on a specialized dataset where CNNs, with their inherent inductive bias for locality, generalize better. Furthermore, the 5.3 million parameter count of EfficientNet-B0 allows for deployment on solar-powered edge devices in remote stations, a "Green AI" approach critical for disaster mitigation in developing nations.
+
 This study presents a modernized hierarchical approach using EfficientNet-B0 as a backbone. We introduce a "Solar Cycle Flux Homogenization" strategy, which explicitly trains the model on contemporary noise from the 2025 solar maximum. This research contributes:
 \begin{enumerate}[label=\roman*)]
-    \item A hierarchical multi-task architecture optimized for disaster-level detection.
+    \item A hierarchical multi-task architecture optimized for disaster-level detection on edge devices.
     \item Evidence of 100\% sensitivity for $M6.0+$ quakes under high solar flux.
     \item A comprehensive comparison between legacy (2018) and modern (2025) monitoring environments.
+    \item Physics-guided validation showing independence from global geomagnetic indices (Kp).
 \end{enumerate}
 
 \section{Materials and Methods}
@@ -47,8 +50,10 @@ To transform raw magnetic time series into a format suitable for convolutional n
     \item \textbf{Standardization}: Generation of $Z/H$ polarization ratio spectrograms. For Phase 2.1, these were mapped to 3-channel RGB images (224x224 pixels).
 \end{itemize}
 
-\subsection{Dataset Homogenization (Experiment 3)}
+\subsection{Dataset Homogenization and Splitting Strategy}
 To mitigate "Snapshot Learning" \cite{geirhos2020shortcut}, where models learn sensor-specific noise rather than seismic features, we consolidated a 2,265-sample dataset. The critical innovation in Experiment 3 was the replacement of old "Normal" data (from the 2018 solar minimum) with \textbf{1,000 samples of 2024-2025 Normal data}. This forces the model to learn that high spectral intensity during solar maximum does not necessarily equate to a seismic precursor.
+
+To prevent data leakage, we implemented a \textbf{Leave-One-Event-Out (LOEO)} splitting strategy. All temporal windows derived from a specific seismic event (e.g., Cianjur 2022) are grouped together. If an event is designated for the test set, no windows from that event, including overlapping ones, are included in the training set. This ensures strict temporal isolation.
 
 \subsection{Hierarchical Multi-Head Architecture}
 We utilized an EfficientNet-B0 backbone for its superior parameter efficiency. The model branches into three specialized heads after a shared embedding neck:
@@ -71,13 +76,16 @@ The most significant outcome of this study (Experiment 3) is the model's perform
 
 The categorical locking for disaster-level events indicates that the spectral signatures of major earthquakes are sufficiently distinct from ambient noise when processed through a multi-scale EfficientNet backbone. The zero false alarm rate for Large events is critical for operational deployment, ensuring that high-level alerts are only triggered for genuine disaster-level precursors.
 
-\subsection{Solar Cycle Robustness and Domain Adaptation}
-A core challenge addressed in this research is the interference from high-flux solar activity (2024–2025). As hypothesized, models trained only on legacy "Normal" data from solar minimum periods tend to misidentify contemporary space weather as seismic precursors. 
+\subsection{Solar Cycle Robustness (Physics Validation)}
+A critical validity check for any precursor detection system is its independence from global space weather. We performed a correlation analysis between the model's Precursor Probability and the Planetary K-index (Kp) during the 2024-2025 solar maximum. 
 
-By incorporating 1,000 contemporary "Modern Normal" samples into the training set, we successfully neutralized this bias. The model maintained a \textbf{Normal Class Recall of 86.0\%} when tested specifically against 2025 solar flux data. While this recall is slightly lower than results on legacy 2018 data, it represents a far more robust and realistic measure of performance, demonstrating that the system can distinguish between extreme solar-induced magnetic fluctuations and true pre-seismic ULF emissions.
+Our results show a negligible Pearson correlation ($R = 0.0316$). The regression analysis (Figure 8) demonstrates a flat trend line, indicating that the model does not conflate high geomagnetic activity (storms) with seismic precursors. This confirms our hypothesis that the Hierarchical EfficientNet, trained on a homogenized dataset, learns to distinguish local lithospheric anomalies from global solar-induced disturbances.
 
 \subsection{Performance Bottleneck at Moderate Magnitudes}
 In contrast to the Large class, performance for Moderate ($M4.5-4.9$) and Medium ($M5.0-5.9$) classes remains challenging, with Recalls of 12.0\% and 12.5\%, respectively. Discussion of this disparity reveals that the pre-seismic energy released by smaller events is frequently below the noise floor of spectrograms encoded with 8-bit precision. This justifies our hierarchical approach: by implementing a \textbf{Binary Gatekeeper}, the system prioritizes high-fidelity signals associated with disaster-level quakes while preventing smaller events from contaminating the global precision.
+
+\subsection{Azimuth Estimation Constraints}
+The azimuth classification achieved an accuracy of 69.30\%, which is 6.2 times better than the random baseline (11.11\%). While this may seem low for precise localization, it provides valuable directional constraints (e.g., sector identification) in a single-station setup. The inherent ambiguity of ULF signal polarization prevents higher precision from a single station. We propose the future integration of multiple stations via Graph Neural Networks (GNN) to resolve this limitation through triangulation.
 
 \begin{table}[H]
 \centering

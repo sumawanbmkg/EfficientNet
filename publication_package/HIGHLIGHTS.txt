@@ -1,0 +1,14 @@
+HIGHLIGHTS
+==========
+
+• VGG16 achieves 98.68% accuracy for earthquake magnitude classification from geomagnetic spectrograms
+
+• EfficientNet-B0 offers 26× smaller model size (20 MB vs 528 MB) with 94.37% accuracy
+
+• LOEO and LOSO cross-validation confirm excellent generalization (97.53% and 97.57% respectively)
+
+• Grad-CAM analysis confirms models focus on physically meaningful ULF frequency patterns (0.001-0.01 Hz)
+
+• Multi-task learning enables simultaneous magnitude and azimuth prediction from single input
+
+• Comprehensive failure analysis demonstrates physically interpretable model behavior

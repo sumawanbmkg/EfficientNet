@@ -119,7 +119,8 @@ d:/multi/
 ### Essential Reading (Start Here)
 1. **[PHASE2_QUICK_REFERENCE.md](PHASE2_QUICK_REFERENCE.md)** - Quick start & troubleshooting
 2. **[PHASE2_IMPLEMENTATION_SUMMARY.md](PHASE2_IMPLEMENTATION_SUMMARY.md)** - What we built & why
-3. **[CHECKPOINT_DATASET_V2.md](CHECKPOINT_DATASET_V2.md)** - Current dataset status
+3. **[CHECKPOINT_PERFORMANCE_EFFICIENTNET.md](CHECKPOINT_PERFORMANCE_EFFICIENTNET.md)** - Performance Metrics & Validation
+4. **[CHECKPOINT_DATASET_V2.md](CHECKPOINT_DATASET_V2.md)** - Current dataset status
 
 ### Deep Dive
 4. **[STRATEGY_HIERARCHY_CHAMPION.md](STRATEGY_HIERARCHY_CHAMPION.md)** - Overall strategy

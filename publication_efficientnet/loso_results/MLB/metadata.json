@@ -1,0 +1,12 @@
+{
+  "model_id": "effi_challenger_20260218_093313",
+  "architecture": "efficientnet_b0_hierarchical",
+  "trained_at": "2026-02-18T09:33:13.990664",
+  "epoch": 4,
+  "metrics": {
+    "magnitude_accuracy": 61.212121212121204,
+    "azimuth_accuracy": 45.45454545454545,
+    "magnitude_recall_large": 100.0,
+    "composite_score": 54.90909090909091
+  }
+}
